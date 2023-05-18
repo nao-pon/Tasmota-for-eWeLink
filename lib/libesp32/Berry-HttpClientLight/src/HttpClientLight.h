@@ -5,8 +5,8 @@
  *
  * Copyright (c) 2015 Markus Sattler. All rights reserved.
  * This file is part of the HTTPClient for Arduino.
- * Port to ESP32 by Evandro Luis Copercini (2017), 
- * changed fingerprints to CA verification. 	
+ * Port to ESP32 by Evandro Luis Copercini (2017),
+ * changed fingerprints to CA verification.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -154,7 +154,7 @@ public:
     ~HTTPClientLight();
 
 /*
- * Since both begin() functions take a reference to client as a parameter, you need to 
+ * Since both begin() functions take a reference to client as a parameter, you need to
  * ensure the client object lives the entire time of the HTTPClientLight
  */
     // bool begin(WiFiClient &client, String url);
@@ -194,6 +194,8 @@ public:
     int POST(String payload);
     int PUT(uint8_t * payload, size_t size);
     int PUT(String payload);
+    int DELETE(uint8_t * payload, size_t size);
+    int DELETE(String payload);
     int sendRequest(const char * type, String payload);
     int sendRequest(const char * type, uint8_t * payload = NULL, size_t size = 0);
     int sendRequest(const char * type, Stream * stream, size_t size = 0);
@@ -245,7 +247,7 @@ protected:
     /// request handling
     String _host;
     uint16_t _port = 0;
-    int32_t _connectTimeout = -1;
+    int32_t _connectTimeout = HTTPCLIENT_DEFAULT_TCP_TIMEOUT;  // Do not set to -1 as it fails WiFiClient connect()
     bool _reuse = true;
     uint16_t _tcpTimeout = HTTPCLIENT_DEFAULT_TCP_TIMEOUT;
     bool _useHTTP10 = false;
